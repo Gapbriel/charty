@@ -1,8 +1,8 @@
 {
     "project": {
-        "name": "ChartyJS",
-        "description": "ChartyJS Api doc",
-        "version": "0.5.8"
+        "name": "charty",
+        "description": "Framework for chart development.",
+        "version": "0.5.11"
     },
     "files": {
         "src/api/chartinterface.js": {

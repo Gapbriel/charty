@@ -14,59 +14,59 @@ module.exports = function(grunt) {
         .filterDev('grunt-*')
         .forEach(grunt.loadNpmTasks);
 
-    /** Configurable paths */
-    var yeomanConfig = {
-        app: 'src',
-        dist: 'dist'
-    };
-
     grunt.initConfig({
-        yeoman: yeomanConfig,
+        config: {
+            src: 'src',
+            dist: 'dist',
+            ghPages: 'gh-pages'
+        },
+
+        pkg: grunt.file.readJSON('package.json'),
 
         /** Concat */
         concat: {
             dist: {
                 src: [
-                    '<%= yeoman.app %>/utils/datavalidator/datavalidator.js',
-                    '<%= yeoman.app %>/api/chartyinit.js',
-                    '<%= yeoman.app %>/api/chartynames.js',
-                    '<%= yeoman.app %>/components/scales/*.js',
-                    '<%= yeoman.app %>/composition/datamapper/datamapper.js',
-                    '<%= yeoman.app %>/components/base/basechart.js',
-                    '<%= yeoman.app %>/composition/simpledatagroup.js',
-                    '<%= yeoman.app %>/components/axis/axis.js',
-                    '<%= yeoman.app %>/components/bar/bar.js',
-                    '<%= yeoman.app %>/components/bar/horizontalbar.js',
-                    '<%= yeoman.app %>/components/bar/winlossbar.js',
-                    '<%= yeoman.app %>/components/circle/circle.js',
-                    '<%= yeoman.app %>/components/donut/donut.js',
-                    '<%= yeoman.app %>/components/line/line.js',
-                    '<%= yeoman.app %>/components/roundedrectangle/roundedrectangle.js',
-                    '<%= yeoman.app %>/components/text/text.js',
-                    '<%= yeoman.app %>/components/text/abovetext.js',
-                    '<%= yeoman.app %>/components/text/righttext.js',
-                    '<%= yeoman.app %>/components/text/winlosstext.js',
-                    '<%= yeoman.app %>/components/triangle/triangle.js',
-                    '<%= yeoman.app %>/composition/multipledatagroup.js',
-                    '<%= yeoman.app %>/composition/multipleinstancesmixin.js',
-                    '<%= yeoman.app %>/composition/axis/xyaxis.js',
-                    '<%= yeoman.app %>/composition/axis/yxyaxis.js',
-                    '<%= yeoman.app %>/composition/barchart/barchart.js',
-                    '<%= yeoman.app %>/composition/groupedbarchart/groupedbarchart.js',
-                    '<%= yeoman.app %>/composition/donutwithinnertext/donutwithinnertext.js',
-                    '<%= yeoman.app %>/composition/labeledtrianglechart/labeledtrianglechart.js',
-                    '<%= yeoman.app %>/composition/linechart/*.js',
-                    '<%= yeoman.app %>/composition/scatterplot/scatterplot.js',
-                    '<%= yeoman.app %>/utils/accessor/accessor.js',
-                    '<%= yeoman.app %>/utils/events/functionevent.js',
-                    '<%= yeoman.app %>/utils/events/bootstrapevent.js',
-                    '<%= yeoman.app %>/utils/events/eventfactory.js',
-                    '<%= yeoman.app %>/utils/events/eventmanager.js',
-                    '<%= yeoman.app %>/api/chartinterface.js',
-                    '<%= yeoman.app %>/api/chartyapi.js',
-                    '<%= yeoman.app %>/api/charty.js',
+                    '<%= config.src %>/utils/datavalidator/datavalidator.js',
+                    '<%= config.src %>/api/chartyinit.js',
+                    '<%= config.src %>/api/chartynames.js',
+                    '<%= config.src %>/components/scales/*.js',
+                    '<%= config.src %>/composition/datamapper/datamapper.js',
+                    '<%= config.src %>/components/base/basechart.js',
+                    '<%= config.src %>/composition/simpledatagroup.js',
+                    '<%= config.src %>/components/axis/axis.js',
+                    '<%= config.src %>/components/bar/bar.js',
+                    '<%= config.src %>/components/bar/horizontalbar.js',
+                    '<%= config.src %>/components/bar/winlossbar.js',
+                    '<%= config.src %>/components/circle/circle.js',
+                    '<%= config.src %>/components/donut/donut.js',
+                    '<%= config.src %>/components/line/line.js',
+                    '<%= config.src %>/components/roundedrectangle/roundedrectangle.js',
+                    '<%= config.src %>/components/text/text.js',
+                    '<%= config.src %>/components/text/abovetext.js',
+                    '<%= config.src %>/components/text/righttext.js',
+                    '<%= config.src %>/components/text/winlosstext.js',
+                    '<%= config.src %>/components/triangle/triangle.js',
+                    '<%= config.src %>/composition/multipledatagroup.js',
+                    '<%= config.src %>/composition/multipleinstancesmixin.js',
+                    '<%= config.src %>/composition/axis/xyaxis.js',
+                    '<%= config.src %>/composition/axis/yxyaxis.js',
+                    '<%= config.src %>/composition/barchart/barchart.js',
+                    '<%= config.src %>/composition/groupedbarchart/groupedbarchart.js',
+                    '<%= config.src %>/composition/donutwithinnertext/donutwithinnertext.js',
+                    '<%= config.src %>/composition/labeledtrianglechart/labeledtrianglechart.js',
+                    '<%= config.src %>/composition/linechart/*.js',
+                    '<%= config.src %>/composition/scatterplot/scatterplot.js',
+                    '<%= config.src %>/utils/accessor/accessor.js',
+                    '<%= config.src %>/utils/events/functionevent.js',
+                    '<%= config.src %>/utils/events/bootstrapevent.js',
+                    '<%= config.src %>/utils/events/eventfactory.js',
+                    '<%= config.src %>/utils/events/eventmanager.js',
+                    '<%= config.src %>/api/chartinterface.js',
+                    '<%= config.src %>/api/chartyapi.js',
+                    '<%= config.src %>/api/charty.js',
                 ],
-                dest: '<%= yeoman.dist %>/charty.js'
+                dest: '<%= config.dist %>/charty.js'
             }
         },
 
@@ -74,7 +74,7 @@ module.exports = function(grunt) {
         uglify: {
             dist: {
                 files: {
-                    '<%= yeoman.dist %>/charty.min.js': '<%= yeoman.dist %>/charty.js'
+                    '<%= config.dist %>/<%= pkg.name %>.min.js': '<%= config.dist %>/<%= pkg.name %>.js'
                 }
             }
         },
@@ -83,7 +83,7 @@ module.exports = function(grunt) {
         plato: {
             your_task: {
                 files: {
-                    'report': ['<%= yeoman.app %>/**/*.js'],
+                    '<%= config.ghPages %>/plato': ['<%= config.src %>/**/*.js'],
                 }
             },
         },
@@ -91,12 +91,12 @@ module.exports = function(grunt) {
         /** Yuidoc */
         yuidoc: {
             compile: {
-                name: 'ChartyJS',
-                description: 'ChartyJS Api doc',
-                version: '0.5.8',
+                name: '<%= pkg.name %>',
+                description: '<%= pkg.description %>',
+                version: '<%= pkg.version %>',
                 options: {
                     paths: 'src/',
-                    outdir: 'doc/'
+                    outdir: 'gh-pages/doc/'
                 }
             }
         },
@@ -107,20 +107,20 @@ module.exports = function(grunt) {
                 jshintrc: '.jshintrc'
             },
             all: [
-                '<%= yeoman.app %>/**/*.js'
+                '<%= config.src %>/**/*.js'
             ]
         },
 
         /** JSBeautifier */
         jsbeautifier: {
             modify: {
-                src: ['Gruntfile.js', '<%= yeoman.app %>/**/*.js'],
+                src: ['Gruntfile.js', '<%= config.src %>/**/*.js'],
                 options: {
                     config: '.jsbeautifyrc'
                 }
             },
             verify: {
-                src: ['Gruntfile.js', '<%= yeoman.app %>/**/*.js'],
+                src: ['Gruntfile.js', '<%= config.src %>/**/*.js'],
                 options: {
                     mode: 'VERIFY_ONLY',
                     config: '.jsbeautifyrc'
