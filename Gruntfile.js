@@ -14,85 +14,84 @@ module.exports = function(grunt) {
         .filterDev('grunt-*')
         .forEach(grunt.loadNpmTasks);
 
-    grunt.initConfig({
-        config: {
-            src: 'src',
-            dist: 'dist',
-            ghPages: 'gh-pages',
-            tmp: '.tmp'
-        },
+    /** General settings **/
+    var config = {
+        SRC: 'src',
+        DIST: 'dist',
+        GH_PAGES: 'gh-pages',
+        TMP: '.tmp',
+        JS_TREE: [
+            '<%= config.SRC %>/utils/datavalidator/datavalidator.js',
+            '<%= config.SRC %>/api/chartyinit.js',
+            '<%= config.SRC %>/api/chartynames.js',
+            '<%= config.SRC %>/components/scales/*.js',
+            '<%= config.SRC %>/composition/datamapper/datamapper.js',
+            '<%= config.SRC %>/components/base/basechart.js',
+            '<%= config.SRC %>/composition/simpledatagroup.js',
+            '<%= config.SRC %>/components/axis/axis.js',
+            '<%= config.SRC %>/components/bar/bar.js',
+            '<%= config.SRC %>/components/bar/horizontalbar.js',
+            '<%= config.SRC %>/components/bar/winlossbar.js',
+            '<%= config.SRC %>/components/circle/circle.js',
+            '<%= config.SRC %>/components/donut/donut.js',
+            '<%= config.SRC %>/components/line/line.js',
+            '<%= config.SRC %>/components/roundedrectangle/roundedrectangle.js',
+            '<%= config.SRC %>/components/text/text.js',
+            '<%= config.SRC %>/components/text/abovetext.js',
+            '<%= config.SRC %>/components/text/righttext.js',
+            '<%= config.SRC %>/components/text/winlosstext.js',
+            '<%= config.SRC %>/components/triangle/triangle.js',
+            '<%= config.SRC %>/composition/multipledatagroup.js',
+            '<%= config.SRC %>/composition/multipleinstancesmixin.js',
+            '<%= config.SRC %>/composition/axis/xyaxis.js',
+            '<%= config.SRC %>/composition/axis/yxyaxis.js',
+            '<%= config.SRC %>/composition/barchart/barchart.js',
+            '<%= config.SRC %>/composition/groupedbarchart/groupedbarchart.js',
+            '<%= config.SRC %>/composition/donutwithinnertext/donutwithinnertext.js',
+            '<%= config.SRC %>/composition/labeledtrianglechart/labeledtrianglechart.js',
+            '<%= config.SRC %>/composition/linechart/*.js',
+            '<%= config.SRC %>/composition/scatterplot/scatterplot.js',
+            '<%= config.SRC %>/utils/accessor/accessor.js',
+            '<%= config.SRC %>/utils/events/functionevent.js',
+            '<%= config.SRC %>/utils/events/bootstrapevent.js',
+            '<%= config.SRC %>/utils/events/eventfactory.js',
+            '<%= config.SRC %>/utils/events/eventmanager.js',
+            '<%= config.SRC %>/api/chartinterface.js',
+            '<%= config.SRC %>/api/chartyapi.js',
+            '<%= config.SRC %>/api/charty.js'
+        ]
+    };
 
+    grunt.initConfig({
+        config: config,
         pkg: grunt.file.readJSON('package.json'),
 
-        /** Concat */
         concat: {
             dist: {
-                src: [
-                    '<%= config.src %>/utils/datavalidator/datavalidator.js',
-                    '<%= config.src %>/api/chartyinit.js',
-                    '<%= config.src %>/api/chartynames.js',
-                    '<%= config.src %>/components/scales/*.js',
-                    '<%= config.src %>/composition/datamapper/datamapper.js',
-                    '<%= config.src %>/components/base/basechart.js',
-                    '<%= config.src %>/composition/simpledatagroup.js',
-                    '<%= config.src %>/components/axis/axis.js',
-                    '<%= config.src %>/components/bar/bar.js',
-                    '<%= config.src %>/components/bar/horizontalbar.js',
-                    '<%= config.src %>/components/bar/winlossbar.js',
-                    '<%= config.src %>/components/circle/circle.js',
-                    '<%= config.src %>/components/donut/donut.js',
-                    '<%= config.src %>/components/line/line.js',
-                    '<%= config.src %>/components/roundedrectangle/roundedrectangle.js',
-                    '<%= config.src %>/components/text/text.js',
-                    '<%= config.src %>/components/text/abovetext.js',
-                    '<%= config.src %>/components/text/righttext.js',
-                    '<%= config.src %>/components/text/winlosstext.js',
-                    '<%= config.src %>/components/triangle/triangle.js',
-                    '<%= config.src %>/composition/multipledatagroup.js',
-                    '<%= config.src %>/composition/multipleinstancesmixin.js',
-                    '<%= config.src %>/composition/axis/xyaxis.js',
-                    '<%= config.src %>/composition/axis/yxyaxis.js',
-                    '<%= config.src %>/composition/barchart/barchart.js',
-                    '<%= config.src %>/composition/groupedbarchart/groupedbarchart.js',
-                    '<%= config.src %>/composition/donutwithinnertext/donutwithinnertext.js',
-                    '<%= config.src %>/composition/labeledtrianglechart/labeledtrianglechart.js',
-                    '<%= config.src %>/composition/linechart/*.js',
-                    '<%= config.src %>/composition/scatterplot/scatterplot.js',
-                    '<%= config.src %>/utils/accessor/accessor.js',
-                    '<%= config.src %>/utils/events/functionevent.js',
-                    '<%= config.src %>/utils/events/bootstrapevent.js',
-                    '<%= config.src %>/utils/events/eventfactory.js',
-                    '<%= config.src %>/utils/events/eventmanager.js',
-                    '<%= config.src %>/api/chartinterface.js',
-                    '<%= config.src %>/api/chartyapi.js',
-                    '<%= config.src %>/api/charty.js',
-                ],
-                dest: '<%= config.dist %>/charty.js'
+                src: config.JS_TREE,
+                dest: '<%= config.DIST %>/<%= pkg.name %>.js'
             }
         },
 
-        /** Minimify code */
         uglify: {
             options: {
                 sourceMap: true
             },
             default: {
                 files: {
-                    '<%= config.dist %>/<%= pkg.name %>.min.js': '<%= config.dist %>/<%= pkg.name %>.js'
+                    '<%= config.DIST %>/<%= pkg.name %>.min.js': config.JS_TREE
                 }
             }
         },
 
-        /** Plato */
         plato: {
-            your_task: {
+            default: {
                 files: {
-                    '<%= config.ghPages %>/plato': ['<%= config.src %>/**/*.js'],
+                    '<%= config.GH_PAGES %>/plato': config.JS_TREE
                 }
             },
         },
 
-        /** Yuidoc */
         yuidoc: {
             compile: {
                 name: '<%= pkg.name %>',
@@ -105,26 +104,22 @@ module.exports = function(grunt) {
             }
         },
 
-        /** JSHint */
         jshint: {
             options: {
                 jshintrc: '.jshintrc'
             },
-            all: [
-                '<%= config.src %>/**/*.js'
-            ]
+            default: config.JS_TREE
         },
 
-        /** JSBeautifier */
         jsbeautifier: {
             modify: {
-                src: ['Gruntfile.js', '<%= config.src %>/**/*.js'],
+                src: config.JS_TREE,
                 options: {
                     config: '.jsbeautifyrc'
                 }
             },
             verify: {
-                src: ['Gruntfile.js', '<%= config.src %>/**/*.js'],
+                src: config.JS_TREE,
                 options: {
                     mode: 'VERIFY_ONLY',
                     config: '.jsbeautifyrc'
@@ -132,7 +127,6 @@ module.exports = function(grunt) {
             }
         },
 
-        /** Server **/
         connect: {
             default: {
                 options: {
@@ -153,24 +147,36 @@ module.exports = function(grunt) {
             },
             html: {
                 files: [
-                    '<%= config.ghPages %>/examples/*.html'
+                    '<%= config.GH_PAGES %>/examples/*.html'
                 ]
             },
             js: {
-                files: [
-                    '<%= config.src %>/**/*.js'
-                ]
+                files: config.JS_TREE,
+                tasks: ['reload-js']
+            }
+        },
+
+        copy: {
+            dev: {
+                files: [{
+                    expand: true,
+                    dot: false,
+                    src: '<%= config.DIST %>/**',
+                    dest: '<%= config.TMP %>/examples/assets/vendor/<%= pkg.name %>'
+                }]
             }
         }
-
     });
 
-    /**
-    Server
-    **/
     grunt.registerTask('server', [
         'connect',
         'watch'
+    ]);
+
+    grunt.registerTask('reload-js', [
+        // 'concat',
+        'uglify',
+        'copy:dev'
     ]);
 
     /** Build js */
