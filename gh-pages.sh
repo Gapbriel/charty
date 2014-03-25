@@ -29,6 +29,7 @@ if [[ $? -eq 0 ]]; then
   git rm -rf --quiet .
   git read-tree $BRANCH:$FOLDER/ &> /dev/null
   git checkout --quiet -- .
+  git mv ./home/* ./
   git commit  --quiet -m"$FOLDER created."
   echo "$DST created and ready to be pushed."
 fi
