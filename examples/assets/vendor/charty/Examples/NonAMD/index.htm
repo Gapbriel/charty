@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Charty - Non AMD Examples</title>
+    <!--[if lte IE 8]>
+      <script src="../../vendor/r2d3/r2d3.js" charset="utf-8"></script>
+      <script src="../../Vendor/Polyfills-for-IE8/getComputedStyle.js"></script>
+      <script>
+        if(!function(){}.bind){
+            Function.prototype.bind = function(){
+              var me = this
+              , shift = [].shift
+              , he = shift.apply(arguments)
+              , ar = arguments
+              return function(){
+                return me.apply(he, ar);
+              };
+            };
+        };
+      </script>
+    <![endif]-->
+    <!--[if gte IE 9]><!-->
+    <script src="../../vendor/d3/d3.min.js"></script>
+    <!--<![endif]-->
+    <link rel="stylesheet" type="text/css" href="../css/styles.css"/>
+    <link href="../../vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" media="screen">
+  </head>
+  <body>
+    <h1>Charty - Non AMD Examples</h1>
+
+    <div id='chart1' class='viewport'>
+    </div>
+
+    <div id='chart9' class='viewport'>
+    </div>
+
+    <div id='chart2' class='viewport'>
+    </div>
+
+    <div id='chart3' class='viewport'>
+    </div>
+
+    <div id='chart4' class='viewport'>
+    </div>
+
+    <div id='chart6' class='viewport'>
+    </div>
+
+    <div id='chart7' class='viewport'>
+    </div>
+
+    <div id='chart8' class='viewport'>
+    </div>
+
+    <div id='chart11' class='viewport'>
+    </div>
+
+    <script src="../../vendor/d3.chart/d3.chart.js"></script>
+    <script src="../../vendor/underscore/underscore-min.js"></script>
+    <script src="../../vendor/jquery/jquery.min.js"></script>
+
+    <script src="../../vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <script src="../../dist/charty.js"></script>
+
+    <!-- EXAMPLE LOADING -->
+    <script src="../charts/horizontalbarchart.js"></script>
+    <script src="../charts/verticalbarchart.js"></script>
+    <script src="../charts/labeledtrianglechart.js"></script>
+    <script src="../charts/linechart.js"></script>
+    <script src="../charts/scatterplot.js"></script>
+    <script src="../charts/donutinnertext.js"></script>
+    <script src="../charts/linecirclechart.js"></script>
+    <script src="../charts/groupedbarchart.js"></script>
+    <script src="../charts/winlossbarchart.js"></script>
+
+  </body>
+</html>
