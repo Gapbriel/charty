@@ -1,9 +1,9 @@
-/**
- * Build generator via Grunt
- */
+//
+// Helper for connect. The idea behind it is to load a middle with a given
+// directory.
+//
 var mountFolder = function(connect, dir) {
-    return connect.static(require('path')
-        .resolve(dir));
+    return connect.static(require('path').resolve(dir));
 };
 
 module.exports = function(grunt) {
@@ -18,7 +18,8 @@ module.exports = function(grunt) {
         config: {
             src: 'src',
             dist: 'dist',
-            ghPages: 'gh-pages'
+            ghPages: 'gh-pages',
+            tmp: '.tmp'
         },
 
         pkg: grunt.file.readJSON('package.json'),
@@ -79,7 +80,7 @@ module.exports = function(grunt) {
             }
         },
 
-        /** Platojs */
+        /** Plato */
         plato: {
             your_task: {
                 files: {
@@ -126,9 +127,48 @@ module.exports = function(grunt) {
                     config: '.jsbeautifyrc'
                 }
             }
+        },
+
+        /** Server **/
+        connect: {
+            default: {
+                options: {
+                    port: 9000,
+                    middleware: function(connect, options) {
+                        return [
+                            mountFolder(connect, '.tmp'),
+                            mountFolder(connect, 'gh-pages')
+                        ];
+                    }
+                }
+            }
+        },
+
+        watch: {
+            options: {
+                livereload: true
+            },
+            html: {
+                files: [
+                    '<%= config.ghPages %>/examples/*.html'
+                ]
+            },
+            js: {
+                files: [
+                    '<%= config.src %>/**/*.js'
+                ]
+            }
         }
 
     });
+
+    /**
+    Server
+    **/
+    grunt.registerTask('server', [
+        'connect',
+        'watch'
+    ]);
 
     /** Build js */
     grunt.registerTask('build-js', [
