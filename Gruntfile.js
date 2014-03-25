@@ -73,7 +73,10 @@ module.exports = function(grunt) {
 
         /** Minimify code */
         uglify: {
-            dist: {
+            options: {
+                sourceMap: true
+            },
+            default: {
                 files: {
                     '<%= config.dist %>/<%= pkg.name %>.min.js': '<%= config.dist %>/<%= pkg.name %>.js'
                 }
