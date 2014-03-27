@@ -74,10 +74,16 @@ module.exports = function(grunt) {
         },
 
         uglify: {
-            options: {
-                sourceMap: true
-            },
-            default: {
+            dev: {
+                options: {
+                    sourceMap: true,
+                    sourceMapIncludeSources: true,
+                    mangle: false,
+                    compress: {
+                        drop_console: false,
+                        drop_debugger: false
+                    }
+                },
                 files: {
                     '<%= config.DIST %>/<%= pkg.name %>.min.js': config.JS_TREE
                 }
