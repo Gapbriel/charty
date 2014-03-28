@@ -1,3 +1,5 @@
+var compression = require('compression')();
+
 //
 // Helper for connect. The idea behind it is to load a middle with a given
 // directory.
@@ -79,10 +81,8 @@ module.exports = function(grunt) {
                     sourceMap: true,
                     sourceMapIncludeSources: true,
                     mangle: false,
-                    compress: {
-                        drop_console: false,
-                        drop_debugger: false
-                    }
+                    compress: false,
+                    report: 'gzip'
                 },
                 files: {
                     '<%= config.DIST %>/<%= pkg.name %>.min.js': config.JS_TREE
@@ -139,6 +139,7 @@ module.exports = function(grunt) {
                     port: 9000,
                     middleware: function(connect, options) {
                         return [
+                            compression,
                             mountFolder(connect, '.tmp'),
                             mountFolder(connect, 'gh-pages')
                         ];
